@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Madam ji | BM</title>
+    <link rel="icon" type="image" href="favicon.ico" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap');
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: 'Quicksand', sans-serif;
+        background: #1a0a2e;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      /* ===== PAGE 1 ===== */
+      #page1 {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse at bottom, #2d1b4e 0%, #1a0a2e 70%);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      #page1.hidden {
+        opacity: 0;
+        transform: scale(1.05);
+        pointer-events: none;
+      }
+
+      .top-title {
+        font-family: 'Dancing Script', cursive;
+        font-size: clamp(1.6rem, 4vw, 2.8rem);
+        color: #f9c6e0;
+        text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493;
+        margin-bottom: 8px;
+        animation: pulse-title 2s ease-in-out infinite;
+      }
+
+      .subtitle {
+        color: #d4a8ff;
+        font-size: 1rem;
+        letter-spacing: 2px;
+        margin-bottom: 40px;
+        opacity: 0.85;
+      }
+
+      @keyframes pulse-title {
+        0%, 100% { text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493; }
+        50% { text-shadow: 0 0 40px #ff69b4, 0 0 80px #ff1493, 0 0 120px #ff1493; }
+      }
+
+      /* ===== CAKE ===== */
+      .cake-wrapper {
+        position: relative;
+        width: 220px;
+        margin-bottom: 30px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .cake-wrapper:hover { transform: scale(1.03); }
+      .cake-wrapper { transition: transform 0.2s; }
+
+      svg#cake { overflow: visible; display: block; margin: auto; }
+
+      /* Flame */
+      #flame-group { transition: opacity 0.4s; }
+      #flame-group.blown { opacity: 0; }
+
+      .flame-main {
+        animation: flicker 0.15s ease-in-out infinite alternate;
+        transform-origin: 50% 100%;
+      }
+
+      @keyframes flicker {
+        0%  { transform: scaleX(1) scaleY(1) rotate(-2deg); }
+        100%{ transform: scaleX(0.85) scaleY(1.12) rotate(2deg); }
+      }
+
+      /* Blow instruction */
+      .blow-hint {
+        color: #ffd6f0;
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 6px;
+        opacity: 0.9;
+        animation: blink-hint 1.4s ease-in-out infinite;
+      }
+
+      @keyframes blink-hint {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+
+      .blow-hint.gone { opacity: 0; transition: opacity 0.5s; }
+
+      /* Mic button */
+      #mic-btn {
+        background: linear-gradient(135deg, #ff69b4, #c44dff);
+        border: none;
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 12px 28px;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 0 20px #ff69b466;
+        transition: transform 0.15s, box-shadow 0.15s;
+        margin-bottom: 10px;
+      }
+
+      #mic-btn:hover { transform: scale(1.06); box-shadow: 0 0 35px #ff69b499; }
+
+      .mic-status {
+        color: #d4a8ff;
+        font-size: 0.8rem;
+        min-height: 20px;
+        text-align: center;
+      }
+
+      /* Smoke puffs */
+      .smoke {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.55);
+        animation: rise-smoke 1.2s ease-out forwards;
+        pointer-events: none;
+      }
+
+      @keyframes rise-smoke {
+        0%   { opacity: 0.7; transform: translate(-50%, 0) scale(0.5); }
+        100% { opacity: 0; transform: translate(-50%, -60px) scale(2); }
+      }
+
+      /* Next button */
+      #next-btn {
+        display: none;
+        background: linear-gradient(135deg, #ff9de2, #c44dff);
+        border: none;
+        color: white;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.3rem;
+        padding: 14px 36px;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 0 30px #c44dff66;
+        animation: bounce-btn 0.9s ease-in-out infinite alternate;
+        margin-top: 14px;
+      }
+
+      #next-btn.show { display: inline-block; }
+
+      @keyframes bounce-btn {
+        0%  { transform: translateY(0); box-shadow: 0 0 30px #c44dff66; }
+        100%{ transform: translateY(-6px); box-shadow: 0 0 50px #c44dffaa; }
+      }
+
+      /* Stars bg */
+      .stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle var(--d) ease-in-out infinite alternate;
+      }
+
+      @keyframes twinkle {
+        0%  { opacity: 0.1; transform: scale(0.8); }
+        100%{ opacity: 0.9; transform: scale(1.2); }
+      }
+
+      /* ===== PAGE 2 ===== */
+      #page2 {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.96);
+        transition: opacity 0.9s ease, transform 0.9s ease;
+        background: radial-gradient(ellipse at top, #3b0f6e 0%, #1a0a2e 70%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-y: auto;
+        padding: 40px 20px 60px;
+      }
+
+      #page2.visible {
+        opacity: 1;
+        pointer-events: all;
+        transform: scale(1);
+      }
+
+      .p2-title {
+        font-family: 'Dancing Script', cursive;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        color: #fff;
+        text-shadow: 0 0 30px #ff69b4, 0 0 60px #ff1493;
+        margin-bottom: 6px;
+        animation: rainbow-title 3s linear infinite;
+      }
+
+      @keyframes rainbow-title {
+        0%  { text-shadow: 0 0 30px #ff69b4, 0 0 60px #ff1493; }
+        33% { text-shadow: 0 0 30px #ffd700, 0 0 60px #ff8c00; }
+        66% { text-shadow: 0 0 30px #c44dff, 0 0 60px #7b00ff; }
+        100%{ text-shadow: 0 0 30px #ff69b4, 0 0 60px #ff1493; }
+      }
+
+      .p2-hearts {
+        font-size: 1.6rem;
+        margin-bottom: 30px;
+        animation: pulse-hearts 1.2s ease-in-out infinite;
+      }
+
+      @keyframes pulse-hearts {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+
+      /* Floating images grid */
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+        margin-bottom: 36px;
+        max-width: 700px;
+      }
+
+      .gallery-card {
+        width: 140px;
+        height: 140px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid #ff69b488;
+        box-shadow: 0 0 20px #c44dff44;
+        animation: float-card var(--fd) ease-in-out infinite alternate;
+        font-size: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--gc1), var(--gc2));
+        /* object-fit: contain; */
+        background-size: auto;
+      }
+
+      @keyframes float-card {
+        0%  { transform: translateY(0) rotate(var(--rot)); }
+        100%{ transform: translateY(-12px) rotate(var(--rot2)); }
+      }
+
+      /* Message */
+      .love-letter {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid #ff69b444;
+        border-radius: 24px;
+        padding: 30px 36px;
+        max-width: 560px;
+        text-align: center;
+        backdrop-filter: blur(8px);
+        margin-bottom: 30px;
+        animation: fade-in-up 1.5s ease both;
+      }
+
+      @keyframes fade-in-up {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .love-letter p {
+        color: #f8d7f0;
+        line-height: 1.9;
+        font-size: 1.05rem;
+      }
+
+      .love-letter .sign {
+        margin-top: 18px;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.5rem;
+        color: #ff9de2;
+      }
+
+      /* Confetti */
+      .confetti-piece {
+        position: fixed;
+        top: -10px;
+        border-radius: 2px;
+        animation: fall var(--fall-d) linear var(--fall-del) infinite;
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      @keyframes fall {
+        0%   { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(105vh) rotate(720deg); opacity: 0.4; }
+      }
+
+      /* Balloons */
+      .balloon {
+        position: fixed;
+        bottom: -120px;
+        font-size: 3rem;
+        animation: rise-balloon var(--bd) ease-in var(--bdel) infinite;
+        pointer-events: none;
+        z-index: 998;
+      }
+
+      @keyframes rise-balloon {
+        0%   { transform: translateY(0) rotate(-5deg); opacity: 0.9; }
+        50%  { transform: translateY(-60vh) rotate(5deg); opacity: 1; }
+        100% { transform: translateY(-110vh) rotate(-3deg); opacity: 0; }
+      }
+
+      /* Music note floaters */
+      .note {
+        position: fixed;
+        font-size: 1.6rem;
+        animation: float-note var(--nd) ease-in-out var(--ndel) infinite;
+        pointer-events: none;
+        z-index: 997;
+        opacity: 0.7;
+      }
+
+      @keyframes float-note {
+        0%   { transform: translateY(0) rotate(-10deg); opacity: 0.7; }
+        50%  { transform: translateY(-30px) rotate(10deg); opacity: 1; }
+        100% { transform: translateY(0) rotate(-10deg); opacity: 0.7; }
+      }
+
+      /* Music controls */
+      .music-bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid #c44dff44;
+        border-radius: 50px;
+        padding: 10px 24px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(6px);
+      }
+
+      .music-bar span { color: #ffd6f0; font-size: 0.9rem; }
+
+      #mute-btn {
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      #mute-btn:hover { transform: scale(1.2); }
+
+      .equalizer {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 20px;
+      }
+
+      .eq-bar {
+        width: 4px;
+        background: linear-gradient(to top, #ff69b4, #c44dff);
+        border-radius: 2px;
+        animation: eq-dance var(--eq-d) ease-in-out infinite alternate;
+      }
+
+      @keyframes eq-dance {
+        0%  { height: 4px; }
+        100%{ height: 20px; }
+      }
+
+      .eq-bar.paused { animation-play-state: paused; height: 4px; }
+
+      z-index helper { position: relative; z-index: 1; }
+      #page1 > *, #page2 > * { position: relative; z-index: 1; }
+
+
+    </style>
+  </head>
+  <body>
+    <!-- Stars background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- ===== PAGE 1 ===== -->
+    <div id="page1">
+      <div class="top-title">🎂 Make a Wish, My Love!</div>
+      <div class="subtitle">✨ blow out the candle ✨</div>
+
+      <div class="cake-wrapper" id="cakeWrap">
+        <svg
+          id="cake"
+          viewBox="0 0 200 220"
+          width="220"
+          height="220"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Plate -->
+          <ellipse
+            cx="100"
+            cy="200"
+            rx="90"
+            ry="10"
+            fill="#d4a0c8"
+            opacity="0.4"
+          />
+
+          <!-- Bottom tier -->
+          <rect x="20" y="150" width="160" height="45" rx="12" fill="#ff8ab0" />
+          <ellipse cx="100" cy="150" rx="80" ry="10" fill="#ff9ec0" />
+          <ellipse cx="100" cy="195" rx="80" ry="8" fill="#e07090" />
+
+          <!-- Frosting drip bottom -->
+          <path
+            d="M22 155 Q35 143 48 155 Q61 143 74 155 Q87 143 100 155 Q113 143 126 155 Q139 143 152 155 Q165 143 178 155"
+            stroke="#fff"
+            stroke-width="4"
+            fill="none"
+            stroke-linecap="round"
+          />
+
+          <!-- Sprinkles bottom tier -->
+          <rect
+            x="40"
+            y="162"
+            width="8"
+            height="3"
+            rx="1.5"
+            fill="#ffd700"
+            transform="rotate(30 44 163)"
+          />
+          <rect
+            x="70"
+            y="170"
+            width="8"
+            height="3"
+            rx="1.5"
+            fill="#7bffd4"
+            transform="rotate(-20 74 171)"
+          />
+          <rect
+            x="120"
+            y="165"
+            width="8"
+            height="3"
+            rx="1.5"
+            fill="#ff9de2"
+            transform="rotate(10 124 166)"
+          />
+          <rect
+            x="150"
+            y="172"
+            width="8"
+            height="3"
+            rx="1.5"
+            fill="#c8f"
+            transform="rotate(-40 154 173)"
+          />
+
+          <!-- Middle tier -->
+          <rect x="35" y="100" width="130" height="52" rx="10" fill="#e87cba" />
+          <ellipse cx="100" cy="100" rx="65" ry="9" fill="#f190c8" />
+          <ellipse cx="100" cy="152" rx="65" ry="8" fill="#c86aa0" />
+
+          <!-- Frosting drip middle -->
+          <path
+            d="M37 106 Q48 94 59 106 Q70 94 81 106 Q92 94 103 106 Q114 94 125 106 Q136 94 147 106 Q158 94 163 106"
+            stroke="#fff"
+            stroke-width="3.5"
+            fill="none"
+            stroke-linecap="round"
+          />
+
+          <!-- Hearts middle tier -->
+          <text x="65" y="132" font-size="16" text-anchor="middle">❤️</text>
+          <text x="100" y="138" font-size="14" text-anchor="middle">💕</text>
+          <text x="133" y="132" font-size="16" text-anchor="middle">❤️</text>
+
+          <!-- Top tier -->
+          <rect x="55" y="60" width="90" height="42" rx="9" fill="#f4a0d8" />
+          <ellipse cx="100" cy="60" rx="45" ry="8" fill="#ffb8e0" />
+          <ellipse cx="100" cy="102" rx="45" ry="7" fill="#d888c0" />
+
+          <!-- Frosting drip top -->
+          <path
+            d="M57 66 Q65 56 73 66 Q81 56 89 66 Q97 56 105 66 Q113 56 121 66 Q129 56 137 66 Q141 56 143 66"
+            stroke="#fff"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+          />
+
+          <!-- Stars top tier -->
+          <text x="75" y="86" font-size="11" text-anchor="middle">⭐</text>
+          <text x="100" y="90" font-size="10" text-anchor="middle">✨</text>
+          <text x="125" y="86" font-size="11" text-anchor="middle">⭐</text>
+
+          <!-- Candle -->
+          <rect
+            x="92"
+            y="30"
+            width="16"
+            height="30"
+            rx="4"
+            fill="url(#candleGrad)"
+          />
+          <defs>
+            <linearGradient id="candleGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ff69b4" />
+              <stop offset="50%" stop-color="#fff" />
+              <stop offset="100%" stop-color="#c44dff" />
+            </linearGradient>
+            <!-- Stripes on candle -->
+          </defs>
+          <rect
+            x="92"
+            y="36"
+            width="16"
+            height="3"
+            fill="#ff69b4"
+            opacity="0.5"
+          />
+          <rect
+            x="92"
+            y="43"
+            width="16"
+            height="3"
+            fill="#c44dff"
+            opacity="0.5"
+          />
+          <rect
+            x="92"
+            y="50"
+            width="16"
+            height="3"
+            fill="#ff69b4"
+            opacity="0.5"
+          />
+
+          <!-- Wick -->
+          <line
+            x1="100"
+            y1="30"
+            x2="100"
+            y2="24"
+            stroke="#555"
+            stroke-width="1.5"
+          />
+
+          <!-- Flame group -->
+          <g id="flame-group">
+            <!-- Outer glow -->
+            <ellipse
+              cx="100"
+              cy="16"
+              rx="11"
+              ry="14"
+              fill="#ffbb00"
+              opacity="0.3"
+              class="flame-main"
+            />
+            <!-- Inner flame -->
+            <path
+              class="flame-main"
+              d="M100 6 C105 10 108 16 105 20 C103 23 97 23 95 20 C92 16 95 10 100 6Z"
+              fill="url(#flameGrad)"
+            />
+            <!-- Core -->
+            <ellipse cx="100" cy="19" rx="3" ry="4" fill="#fff" opacity="0.8" />
+            <defs>
+              <radialGradient id="flameGrad" cx="50%" cy="70%" r="60%">
+                <stop offset="0%" stop-color="#fff" />
+                <stop offset="30%" stop-color="#ffe066" />
+                <stop offset="70%" stop-color="#ff8800" />
+                <stop offset="100%" stop-color="#ff3300" stop-opacity="0.5" />
+              </radialGradient>
+            </defs>
+          </g>
+
+          <!-- Smoke (hidden initially, shown after blow) -->
+          <g id="smoke-group" opacity="0">
+            <circle cx="100" cy="20" r="3" fill="rgba(255,255,255,0.4)">
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values="0,0;-4,-15;4,-30"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="opacity"
+                values="0.5;0.3;0"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="r"
+                values="3;5;8"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </circle>
+            <circle cx="100" cy="20" r="2" fill="rgba(255,255,255,0.3)">
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values="0,0;3,-12;-3,-25"
+                dur="1.2s"
+                begin="0.3s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="opacity"
+                values="0.4;0.2;0"
+                dur="1.2s"
+                begin="0.3s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="r"
+                values="2;4;7"
+                dur="1.2s"
+                begin="0.3s"
+                repeatCount="indefinite"
+              />
+            </circle>
+          </g>
+        </svg>
+      </div>
+
+      <div class="blow-hint" id="blowHint">
+        🎤 Click the button & blow into your mic!
+      </div>
+
+      <button id="mic-btn" onclick="startListening()">🎤 Start Blowing!</button>
+      <div class="mic-status" id="mic-status"></div>
+      <button id="next-btn" onclick="goToPage2()">Open Your Surprise 🎁</button>
+    </div>
+
+    <!-- ===== PAGE 2 ===== -->
+    <div id="page2">
+      <div class="p2-title">Happy Birthday!</div>
+      <div class="p2-hearts">💖 💗 💕 💓 💞</div>
+
+      <!-- Music bar -->
+      <div class="music-bar">
+        <span>🎵 Birthday Vibes</span>
+        <div class="equalizer" id="eq">
+          <div class="eq-bar" style="--eq-d: 0.4s"></div>
+          <div class="eq-bar" style="--eq-d: 0.6s"></div>
+          <div class="eq-bar" style="--eq-d: 0.35s"></div>
+          <div class="eq-bar" style="--eq-d: 0.5s"></div>
+          <div class="eq-bar" style="--eq-d: 0.45s"></div>
+        </div>
+        <button id="mute-btn" onclick="toggleMute()">🔊</button>
+      </div>
+
+      <!-- Photo gallery (emoji art cards) -->
+      <div class="gallery">
+        <div class="gallery-card" style="--gc1: #ff6fa8; --gc2: #ff9de2; --fd: 2.3s; --rot: -3deg; --rot2: 3deg;"
+        ><img src="IMG_20230321_005541_593.jpg" alt="" style="width: 102%" /></div>
+        <div class="gallery-card pic-3"style="--gc1: #c44dff;--gc2: #7b00ff;--fd: 2.7s; --rot: 2deg;--rot2: -2deg;
+          "><img src="pic-3.jpg" alt="" style="width: 102%" /></div>
+        <div class="gallery-card"style="--gc1: #ff8a00; --gc2: #ffcc00;--fd: 2.1s;--rot: -4deg; --rot2: 4deg;"
+        ><img src="pic2.jpg" alt="" style="width: 95%; position: relative; top: 10px"/></div>
+        <div class="gallery-card" style="
+--gc1: #00c9a7;
+            --gc2: #00e5c0;
+            --fd: 2.9s;
+            --rot: 3deg;
+            --rot2: -1deg;
+          "
+        >
+          <img
+            src="pic4.jpg"
+            alt=""
+            style="width: 92%; position: relative; top: 24px"
+          />
+        </div>
+        <div
+          class="gallery-card"
+          style="
+            --gc1: #ff4e8b;
+            --gc2: #ff9de2;
+            --fd: 2.4s;
+            --rot: -2deg;
+            --rot2: 5deg;
+          "
+        >
+          <img
+            src="pic5.jpeg"
+            alt=""
+            style="width: 98%; transform: rotate(-450deg)"
+          />
+        </div>
+        <div
+          class="gallery-card"
+          style="
+            --gc1: #4e8bff;
+            --gc2: #b3cfff;
+            --fd: 2.6s;
+            --rot: 1deg;
+            --rot2: -3deg;
+          "
+        ></div>
+      </div>
+
+      <!-- Love letter -->
+      <div class="love-letter">
+        <p>
+          My love, on this special day,<br />
+          I want you to know that every single moment with you<br />
+          feels like the most beautiful dream. 🌙<br /><br />
+          You light up my world brighter than a thousand candles,<br />
+          you are my calm, my chaos, my home. 🌸<br /><br />
+          Today is all about <em style="color: #ff9de2">you</em> — your smile,
+          your laugh,<br />
+          the way you make everything better just by existing. 💫<br /><br />
+          May this year bring you everything your heart desires.<br />
+          You deserve the whole universe, and I will keep trying<br />
+          to give it to you, one day at a time. 🌠<br /><br />
+          I love you more than words could ever say. 💖
+        </p>
+        <div class="sign">Forever yours 💌</div>
+      </div>
+
+      <div
+        style="
+          color: #d4a8ff;
+          font-size: 1.4rem;
+          animation: pulse-hearts 1s ease-in-out infinite;
+        "
+      >
+        🎂🎉🥳🎈🎁✨🎊🌹💝
+      </div>
+    </div>
+
+    <audio id="birthday-audio" loop>
+      <source
+        src="https://www.bensound.com/bensound-music/bensound-happiness.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script>
+      // ===== Stars =====
+      const starsCont = document.getElementById("stars");
+      for (let i = 0; i < 80; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        const size = Math.random() * 3 + 1;
+        s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random() * 100}%;
+      top:${Math.random() * 100}%;
+      --d:${(Math.random() * 2 + 1).toFixed(1)}s;
+      animation-delay:${(Math.random() * 3).toFixed(1)}s;
+    `;
+        starsCont.appendChild(s);
+      }
+
+      // ===== Mic / blow detection =====
+      let listening = false;
+      let blownOut = false;
+      let audioCtx, analyser, micStream;
+      const micBtn = document.getElementById("mic-btn");
+      const micStatus = document.getElementById("mic-status");
+      const blowHint = document.getElementById("blowHint");
+      const nextBtn = document.getElementById("next-btn");
+      const flameGroup = document.getElementById("flame-group");
+      const smokeGroup = document.getElementById("smoke-group");
+
+      async function startListening() {
+        if (blownOut) return;
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          micStream = stream;
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const source = audioCtx.createMediaStreamSource(stream);
+          analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 256;
+          source.connect(analyser);
+          listening = true;
+          micBtn.textContent = "🎤 Listening... blow now!";
+          micBtn.style.background = "linear-gradient(135deg,#ff4e4e,#ff9de2)";
+          micStatus.textContent = "💨 Blow hard toward your mic!";
+          detectBlow();
+        } catch (e) {
+          micStatus.textContent =
+            "⚠️ Mic access denied. Click the cake instead!";
+          document.getElementById("cakeWrap").onclick = manualBlow;
+        }
+      }
+
+      function detectBlow() {
+        if (!listening) return;
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(data);
+        const avg = data.reduce((a, b) => a + b) / data.length;
+        if (avg > 28) {
+          blowCandle();
+        } else {
+          requestAnimationFrame(detectBlow);
+        }
+      }
+
+      function manualBlow() {
+        if (!blownOut) blowCandle();
+      }
+
+      document.getElementById("cakeWrap").onclick = () => {
+        if (!listening && !blownOut) {
+          micStatus.textContent =
+            '🎂 Click "Start Blowing!" first, or click cake to skip!';
+          setTimeout(() => {
+            if (!blownOut) blowCandle();
+          }, 1200);
+        }
+      };
+
+      function blowCandle() {
+        if (blownOut) return;
+        blownOut = true;
+        if (micStream) micStream.getTracks().forEach((t) => t.stop());
+        listening = false;
+
+        // Animate flame out
+        flameGroup.classList.add("blown");
+        smokeGroup.style.opacity = "1";
+
+        micBtn.textContent = "🎉 You did it!";
+        micBtn.disabled = true;
+        micBtn.style.background = "linear-gradient(135deg,#888,#aaa)";
+        micStatus.textContent = "✨ The candle is out! Make your wish...";
+        blowHint.classList.add("gone");
+
+        // Small screen flash
+        document.body.style.transition = "background 0.1s";
+        setTimeout(() => {
+          document.body.style.background = "#fff2";
+        }, 100);
+        setTimeout(() => {
+          document.body.style.background = "";
+        }, 300);
+
+        setTimeout(() => {
+          micStatus.textContent = "🌟 Wish made! Now open your surprise!";
+          nextBtn.classList.add("show");
+        }, 1600);
+      }
+
+      // ===== Page transition =====
+      function goToPage2() {
+        document.getElementById("page1").classList.add("hidden");
+        setTimeout(() => {
+          document.getElementById("page2").classList.add("visible");
+          spawnConfetti();
+          spawnBalloons();
+          spawnNotes();
+          playMusic();
+        }, 600);
+      }
+
+      // ===== Confetti =====
+      function spawnConfetti() {
+        const colors = [
+          "#ff69b4",
+          "#ffd700",
+          "#c44dff",
+          "#ff8800",
+          "#7bffd4",
+          "#ff9de2",
+          "#fff",
+        ];
+        for (let i = 0; i < 90; i++) {
+          const c = document.createElement("div");
+          c.className = "confetti-piece";
+          const size = Math.random() * 10 + 6;
+          c.style.cssText = `
+        left:${Math.random() * 100}vw;
+        width:${size}px; height:${size * (Math.random() > 0.5 ? 0.4 : 1)}px;
+        background:${colors[Math.floor(Math.random() * colors.length)]};
+        --fall-d:${(Math.random() * 3 + 2).toFixed(1)}s;
+        --fall-del:${(Math.random() * 4).toFixed(1)}s;
+        border-radius:${Math.random() > 0.5 ? "50%" : "2px"};
+      `;
+          document.body.appendChild(c);
+        }
+      }
+
+      // ===== Balloons =====
+      function spawnBalloons() {
+        const emojis = ["🎈", "🎈", "🎉", "🎊", "💝", "🎀"];
+        for (let i = 0; i < 12; i++) {
+          const b = document.createElement("div");
+          b.className = "balloon";
+          b.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          b.style.cssText = `
+        left:${Math.random() * 95}vw;
+        --bd:${(Math.random() * 4 + 4).toFixed(1)}s;
+        --bdel:${(Math.random() * 6).toFixed(1)}s;
+        font-size:${Math.random() * 1.5 + 2.5}rem;
+      `;
+          document.body.appendChild(b);
+        }
+      }
+
+      // ===== Music notes =====
+      function spawnNotes() {
+        const notes = ["🎵", "🎶", "♪", "♫"];
+        for (let i = 0; i < 8; i++) {
+          const n = document.createElement("div");
+          n.className = "note";
+          n.textContent = notes[Math.floor(Math.random() * notes.length)];
+          n.style.cssText = `
+        left:${Math.random() * 90}vw;
+        top:${Math.random() * 70 + 10}vh;
+        --nd:${(Math.random() * 2 + 2).toFixed(1)}s;
+        --ndel:${(Math.random() * 3).toFixed(1)}s;
+        font-size:${Math.random() * 1 + 1.2}rem;
+      `;
+          document.body.appendChild(n);
+        }
+      }
+
+      // ===== Music =====
+      let muted = false;
+      const audio = document.getElementById("birthday-audio");
+
+      function playMusic() {
+        // Generate a happy melody with Web Audio API
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Happy Birthday notes (C major)
+        const notes = [
+          261.63,
+          261.63,
+          293.66,
+          261.63,
+          349.23,
+          329.63, // Happy Birth-day to you
+          261.63,
+          261.63,
+          293.66,
+          261.63,
+          392.0,
+          349.23, // Happy Birth-day to you
+          261.63,
+          261.63,
+          523.25,
+          440.0,
+          349.23,
+          329.63,
+          293.66, // Happy Birth-day dear [name]
+          466.16,
+          466.16,
+          440.0,
+          349.23,
+          392.0,
+          349.23, // Happy Birth-day to you
+        ];
+        const durations = [
+          0.4, 0.15, 0.5, 0.5, 0.5, 1.0, 0.4, 0.15, 0.5, 0.5, 0.5, 1.0, 0.4,
+          0.15, 0.5, 0.5, 0.5, 0.5, 1.0, 0.4, 0.15, 0.5, 0.5, 0.5, 1.5,
+        ];
+
+        window._bdCtx = ctx;
+        window._bdNotes = notes;
+        window._bdDurs = durations;
+
+        function playMelody(startTime) {
+          let t = startTime;
+          for (let i = 0; i < notes.length; i++) {
+            if (muted) continue;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(notes[i], t);
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.22, t + 0.04);
+            gain.gain.linearRampToValueAtTime(0, t + durations[i] - 0.05);
+            osc.start(t);
+            osc.stop(t + durations[i]);
+            t += durations[i] + 0.05;
+          }
+          return t;
+        }
+
+        function loop(start) {
+          const end = playMelody(start);
+          const delay = (end - ctx.currentTime) * 1000;
+          setTimeout(() => {
+            if (!muted) loop(ctx.currentTime + 0.5);
+          }, delay - 300);
+        }
+
+        window._loopFn = loop;
+        window._audioCtxBd = ctx;
+        loop(ctx.currentTime + 0.3);
+      }
+
+      function toggleMute() {
+        muted = !muted;
+        document.getElementById("mute-btn").textContent = muted ? "🔇" : "🔊";
+        document
+          .querySelectorAll(".eq-bar")
+          .forEach((b) => b.classList.toggle("paused", muted));
+        if (!muted && window._audioCtxBd) {
+          window._loopFn(window._audioCtxBd.currentTime + 0.1);
+        }
+      }
+    </script>
+  </body>
+</html>
